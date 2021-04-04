@@ -1,0 +1,87 @@
+<% include partials/header %>
+<style>
+    .form {
+        padding: 0 1% 0 1%;
+    }
+    .card{
+        border-radius: 20px;
+    }
+
+    .card:hover{
+    border-radius: 20px;
+    box-shadow: 10px 10px 7px #D30755;
+    transition: all 200ms ease-out;
+    }
+
+</style>
+<div id="doctors" class="section lb">
+    <div class="container">
+        <% if(!appointments[0]&&!oappointments[0])
+        {%>
+            <h1 style="margin: 1%;">NO APPOINTMENT DATA FOUND</h1>
+        <% }
+        else { %>
+        <fieldset>
+                <h3 style="margin-left: 1%;" class="text-center my-5">Appointment Schedule</h3>
+                <div class="row text-center justify-content-center">
+                <% appointments.forEach(function(appointment){ %>
+                    <% if(appointment.status!="R"){ %>
+                        <div class="col-md-4">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <% var month = appointment.appointmentdate.getMonth() +1; %> 
+                                        <h2 class="card-title"><%= appointment.patientname.toUpperCase() %></h2>
+                                          <p class="card-text" style="font-size: 26px;"><%= appointment.patientcn %> </p>
+                                          <p class="card-text" style="font-size: 40px; font-weight: 900;"><%= appointment.appointmentdate.getDate() + "/" + month + "/" + appointment.appointmentdate.getFullYear() %></p>
+                                          <% if(appointment.status=="C")
+                                          {%>
+                                              <p class="card-text" style="font-size: 26px;"><%= appointment.time %></p>
+                                          <%}else{%>
+                                              <p class="card-text" style="font-size: 26px;">Completed</p>    
+                                          <%}%>
+                                          <p class="card-text"><small class="text-muted"><a href="/doctorhome/<%= appointment._id %>" class="btn btn-danger">View Details</a></small></p>
+                                        </div>
+                                  </div>
+                            </div>
+                <% }}) %>
+                <% oappointments.forEach(function(appointment){ %> 
+                    <% if(appointment.status!="R"){%>
+                        <% var month = appointment.appointmentdate.getMonth() +1; %>
+                        
+                            <div class="col-md-4">
+                                <div class="card mb-3">
+                                        <div class="card-body">
+                                          <h2 class="card-title"><%= appointment.patientname.toUpperCase() %></h2>
+                                          <p class="card-text" style="font-size: 26px;"><%= appointment.patientcn %> </p>
+                                          <p class="card-text" style="font-size: 40px; font-weight: 900;"><%= appointment.appointmentdate.getDate() + "/" + month + "/" + appointment.appointmentdate.getFullYear() %></p>
+                                          <% if(appointment.status=="NC"){%>
+                                            <p class="card-text" style="font-size: 26px;" >Not Confirmed</p>
+                                        <%}%>
+                                          <p class="card-text"><small class="text-muted"><a href="/doctorhome/<%= appointment._id %>" class="btn btn-danger">View Details</a></small></p>
+                                        </div>
+                                  </div>
+                            </div>
+                <% }}) %>
+                </div> 
+
+        </fieldset>
+        <% } %>
+        <%if(addappo){%>
+        <form method="POST" action="/addappointment" >
+            <% var month = T.getMonth() +1; %>
+                <div class="form">
+                    <table class="table table-borderless" >
+                    <tr>
+                    <td style="width: 15%;"><input name="patientname" type="text" class="form-control" placeholder="Patient's Name" required></td>
+                    <td style="padding-left: 5.5%; padding-right: 5%;"><input name="patientcn" type="text" class="form-control" placeholder="Contact Number" required></td>
+                    <td style="padding-left: 0.5%;"><%= T.getDate() + "/" + month + "/" + T.getFullYear() %></td> 
+                    <td style="width: 23%;"></td>
+                    <td style="padding-left: 2%;"><button class="btn btn-success" name="appointmentdate" value="<%= T %>" id="register">Add Appointment</button></td>
+                    <tr>
+                    </table>
+                </div>
+            </form>
+        <%}%>
+    </div>
+</div>
+<% include partials/footer %>

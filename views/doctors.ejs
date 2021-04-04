@@ -1,0 +1,64 @@
+<% include partials/header %>
+<div id="doctors" class="section lb">
+    <div class="container">
+        <div class="section-title text-center">
+            <h3>DOCTORS</h3>
+            <div class="row justify-content-center">
+                <form action="/doctors" method="GET" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" name="search" placeholder="Doctor's Name" class="form-control">
+                        <input type="submit" value="Search" class="btn btn-search ml-3">
+                    </div>
+                </form>
+            </div>
+        </div><!-- end title -->
+        
+        <div class="row">
+            <%if(noMatch){%>
+                <div class="section-title text-center">
+                    <h3>No Doctors Found</h3>
+                </div>
+            <%}else{%>
+                <% doctors.forEach(function(doctor){
+                    if(doctor.type == "doctor"&&doctor.address) {%>
+                        <div class="col-md-4 col-sm-6 col-lg-4" style="padding-bottom: 25px;" onclick="location.href='/<%= doctor.id %>'">
+                            <div class="post-box">
+                                <div class="post-thumb" style="height:300px">
+                                    <img src="<%= doctor.image %>" class="img-fluid" alt="post-img" width="500" height="600" />
+                                    <div class="date">
+                                        <span><%= doctor.fname %></span>
+                                        <span><%= doctor.lname %></span>
+                                    </div>
+                                </div>
+                                <div class="post-info">
+                                    <h4>
+                                        <% if(String(doctor.address).length > 40) {%>
+                                        <%= String(doctor.address).slice(0,40) + "..." %>
+                                        <%} else{%>
+                                        <%= String(doctor.address)%>
+                                        <%}%>
+                                    </h4>
+                                    <ul>
+                                        <li>by admin</li>
+                                        <li>Apr 21, 2018</li>
+                                        <li><a href="#"><b> Verified</b></a></li>
+                                    </ul>
+                                    <p>
+                                        <% if(String(doctor.description).length > 60) {%>
+                                        <%= String(doctor.description).slice(0,60) + "..." %>
+                                        <%} else{%>
+                                        <%= String(doctor.description)%>
+                                        <%}%>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                <% }); %>
+            <% } %>
+        </div>
+        
+    </div>
+</div>
+
+<% include partials/footer %>

@@ -1,0 +1,267 @@
+<% include partials/header %>
+<link rel="stylesheet" href="/css/homepage.css">
+
+<style>
+	#boldie{
+			color: chocolate;
+			
+	}
+</style>
+
+
+<section id="home" class="main-banner parallaxie">
+	<div class="heading">
+		<h1>Welcome to We-Care </h1>			
+		<h3 class="cd-headline clip is-full-width">
+			<span>A helping hand to help people improve  </span>
+			<span class="cd-words-wrapper">
+				<b class="is-visible" id="boldie" >Diet</b>
+				
+				<b id="boldie">Health</b>
+				<b id="boldie">Lifestyle</b>
+			</span>
+			<div class="btn-ber">
+				<% if(!currentuser){ %>
+				<a class="get_btn hvr-bounce-to-top" href="/signin">Sign In</a>
+				<a class="learn_btn hvr-bounce-to-top" href="/signup">Join Now</a>
+				<% }%>
+				<%if(currentuser && currentuser.type!="doctor"){ %>
+				<a class="get_btn hvr-bounce-to-top" href="/doctors">Book Appointment Now</a>
+				<% } %>
+			</div>
+		</h3>
+	</div>
+</section>
+<ul class="slideshow">
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+  </ul>
+    <div id="about" class="section wb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="message-box">                        
+                        <h2>Welcome to We-Care</h2>
+                        <p>A trained conversational chatbot with images(link) support which does not allow you to feel
+                            absence of doctors and nutritionists and provides important health related information.</p>
+						<p></p>
+
+                        <a href="#contact" class="sim-btn hvr-bounce-to-top"><span>Contact Us</span></a>
+                    </div><!-- end messagebox -->
+                </div><!-- end col -->
+
+                <div class="col-md-6">
+                    <div class="right-box-pro wow fadeIn">
+                        <img src="/images/undraw_doctor_kw5l.svg" alt="" class="img-fluid img-rounded">
+                    </div><!-- end media -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end section -->
+	
+    <div id="services" class="section lb">
+        <div class="container">
+            <div class="section-title text-center">
+                <h3>Hot Features</h3>
+                <p>Below are some of the key features and usecases of We-Care</p>
+            </div><!-- end title -->
+
+            <div class="row">
+				<div class="col-md-4">
+                    <div class="services-inner-box">
+						<div class="ser-icon">
+							<i class="flaticon-seo"></i>
+						</div>
+						<h2>Book appointments with doctors</h2>
+						<p>Patients can book appointments with doctor directly using site or via chatting with We-Care</p>
+					</div>
+                </div><!-- end col -->
+                <div class="col-md-4">
+                    <div class="services-inner-box">
+						<div class="ser-icon">
+							<i class="flaticon-development"></i>
+						</div>
+						<h2>Diet recommendation</h2>
+						<p>Ever stumbled upon choosing a correct diet?We are right here to suggest you the perfect appetite on the basis of various parameters</p>
+					</div>
+                </div><!-- end col -->
+				<div class="col-md-4">
+                    <div class="services-inner-box">
+						<div class="ser-icon">
+							<i class="flaticon-process"></i>
+						</div>
+						<h2>Virtual meeting with doctors</h2>
+						<p>Access video consultation with nearest doctors online 24/7, from the comfort of your home.</p>
+					</div>
+                </div><!-- end col -->
+				<div class="col-md-4">
+                    <div class="services-inner-box">
+						<div class="ser-icon">
+							<i class="flaticon-discuss-issue"></i>
+						</div>
+						<h2>Quick Response</h2>
+						<p>Provides some immediate information like how many times a human’s heart beats.</p>
+					</div>
+                </div><!-- end col -->
+				<div class="col-md-4">
+                    <div class="services-inner-box">
+						<div class="ser-icon">
+							<i class="flaticon-idea"></i>
+						</div>
+						<h2>Easy Integration</h2>
+						<p>The chatbot can easily be integrated into a different medical website.</p>
+					</div>
+                </div><!-- end col -->
+				<div class="col-md-4">
+                    <div class="services-inner-box">
+						<div class="ser-icon">
+							<i class="flaticon-idea-1"></i>
+						</div>
+						<h2>Decentralized</h2>
+						<p>Reports stored on blockchain in a dcentralized way to give secure access.</p>
+					</div>
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end section -->
+	
+	<div id="services" class="section ab">
+        <div class="container">
+            <div class="section-title text-center">
+                <h3>Recent Updates</h3>
+                <p>We-Care provides you with all the latest updates during the pandemic</p>
+			</div><!-- end title -->
+			<div class="row">
+				<% for(var i=0; i<6; i++){ %>
+					<div class="col-md-4" onclick="window.open('<%= response[i].url %>','_blank')">
+						<div class="services-inner-box" style="height: 500px;">
+							<div class="news">
+								<img src="<%= response[i].urlToImage %>" class="img-fluid" width="500"  />
+								<h2><%= response[i].title %></h2>
+							</div>
+						</div>
+					</div>
+				<% }; %>
+			</div>
+        </div><!-- end container -->
+    </div><!-- end section -->
+	
+	
+	<div id="team" class="section lb">
+		<div class="container">
+			<div class="section-title text-center">
+				<h3>Our Team</h3>
+				<p> We are a team of Third Year Comps</p>
+			</div><!-- end title -->
+		
+			<div class="row">
+				<div class="col-md-4 col-sm-6">
+					<div class="our-team">
+						<div class="pic">
+							<img src="uploads/Archeel.jpeg">
+						</div>
+						<div class="team-content">
+							<h3 class="title">Archeel Parekh</h3>
+							<span class="post">Full Stack Developer</span>
+							<ul class="social">
+								<li><a href="" class="fa fa-facebook"></a></li>
+								<li><a href="#" class="fa fa-twitter"></a></li>
+								<li><a href="#" class="fa fa-google-plus"></a></li>
+								<li><a href="#" class="fa fa-skype"></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-4 col-sm-6">
+					<div class="our-team">
+						<div class="pic">
+							<img src="https://instagram.fbom13-1.fna.fbcdn.net/v/t51.2885-19/s320x320/119379262_694269481436507_7471256872013768863_n.jpg?tp=1&_nc_ht=instagram.fbom13-1.fna.fbcdn.net&_nc_ohc=9c-WUuekWkgAX-U0Yjn&edm=ABfd0MgAAAAA&ccb=7-4&oh=b1593f190b3566fcad7d7eb5640fd3f9&oe=608C1AB0&_nc_sid=7bff83">
+						</div>
+						<div class="team-content">
+							<h3 class="title">Sanyam Savla</h3>
+							<span class="post">Full Stack Developer</span>
+							<ul class="social">
+								<li><a href="" class="fa fa-facebook"></a></li>
+								<li><a href="#" class="fa fa-twitter"></a></li>
+								<li><a href="#" class="fa fa-google-plus"></a></li>
+								<li><a href="#" class="fa fa-skype"></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-4 col-sm-6">
+					<div class="our-team">
+						<div class="pic">
+							<img src="https://instagram.fbom13-1.fna.fbcdn.net/v/t51.2885-19/s320x320/105494569_716887652475129_8400851852653211946_n.jpg?tp=1&_nc_ht=instagram.fbom13-1.fna.fbcdn.net&_nc_ohc=5-u2nRTYpOQAX-ilHRq&edm=ABfd0MgAAAAA&ccb=7-4&oh=bb33c9ee08fea442da2f6f1e57125f7e&oe=608CEE18&_nc_sid=7bff83">
+						</div>
+						<div class="team-content">
+							<h3 class="title">Shubh Shah</h3>
+							<span class="post">full Stack Developer</span>
+							<ul class="social">
+								<li><a href="" class="fa fa-facebook"></a></li>
+								<li><a href="#" class="fa fa-twitter"></a></li>
+								<li><a href="#" class="fa fa-google-plus"></a></li>
+								<li><a href="#" class="fa fa-skype"></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+    <div id="contact" class="section db">
+        <div class="container">
+            <div class="section-title text-center">
+                <h3>Contact</h3>
+            </div><!-- end title -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contact_form">
+                        <div id="message"></div>
+                        <form id="contactForm" name="sentMessage" novalidate="novalidate">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<input class="form-control" id="name" type="text" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name.">
+										<p class="help-block text-danger"></p>
+									</div>
+									<div class="form-group">
+										<input class="form-control" id="email" type="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email address.">
+										<p class="help-block text-danger"></p>
+									</div>
+									<div class="form-group">
+										<input class="form-control" id="phone" type="tel" placeholder="Your Phone" required="required" data-validation-required-message="Please enter your phone number.">
+										<p class="help-block text-danger"></p>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<textarea class="form-control" id="message" placeholder="Your Message" required="required" data-validation-required-message="Please enter a message."></textarea>
+										<p class="help-block text-danger"></p>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+								<div class="col-lg-12 text-center">
+									<div id="success"></div>
+									<button id="sendMessageButton" class="sim-btn hvr-bounce-to-top" type="submit">Send Message</button>
+								</div>
+							</div>
+						</form>
+                    </div>
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+	</div><!-- end section -->
+<% include partials/footer %>
+
+
+
+

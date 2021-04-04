@@ -1,0 +1,272 @@
+<% include partials/header %>
+<style>
+    body {
+        background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+    }
+
+    .emp-profile {
+        padding: 3%;
+        margin-top: 3%;
+        margin-bottom: 3%;
+        border-radius: 0.5rem;
+        background: #fff;
+    }
+
+    .profile-img {
+        text-align: center;
+    }
+
+    .profile-img img {
+        width: 70%;
+        height: 100%;
+    }
+
+    .profile-img .file {
+        position: relative;
+        overflow: hidden;
+        margin-top: -20%;
+        width: 70%;
+        border: none;
+        border-radius: 0;
+        font-size: 15px;
+        background: #212529b8;
+    }
+
+    .profile-img .file input {
+        position: absolute;
+        opacity: 0;
+        right: 0;
+        top: 0;
+    }
+
+    .profile-head h5 {
+        color: #333;
+    }
+
+    .profile-head h6 {
+        color: #0062cc;
+    }
+
+    .profile-edit-btn {
+        border: none;
+        border-radius: 1.5rem;
+        width: 70%;
+        padding: 2%;
+        font-weight: 600;
+        color: #6c757d;
+        cursor: pointer;
+    }
+
+    .proile-rating {
+        font-size: 12px;
+        color: #818182;
+        margin-top: 5%;
+    }
+
+    .proile-rating span {
+        color: #495057;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .profile-head .nav-tabs {
+        margin-bottom: 5%;
+    }
+
+    .profile-head .nav-tabs .nav-link {
+        font-weight: 600;
+        border: none;
+    }
+
+    .profile-head .nav-tabs .nav-link.active {
+        border: none;
+        border-bottom: 2px solid #0062cc;
+    }
+
+    .profile-work {
+        padding: 14%;
+        margin-top: -15%;
+    }
+
+    .profile-work p {
+        font-size: 12px;
+        color: #818182;
+        font-weight: 600;
+        margin-top: 10%;
+    }
+
+    .profile-work a {
+        text-decoration: none;
+        color: white;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .profile-work ul {
+        list-style: none;
+    }
+
+    .profile-tab label {
+        font-weight: 600;
+    }
+
+    .profile-tab p {
+        font-weight: 600;
+        color: #D30755;
+    }
+    body{
+        color: white
+    }
+</style>
+
+<div id="doctors" class="section lb">
+    <div class="container">
+        <br>
+        <div class="row">
+            <br><br><br>
+            <div class="col-md-4">
+                <div class="profile-img" style="width: 350px;height: 200px;">
+                    <img src="<%= doctor.image %>" alt="" />
+                    <% if(currentuser && doctor._id.equals(currentuser._id)){%>
+                    <div>
+                        <a class="file btn btn-lg btn-primary" href="/picupdate">Change Photo</a>
+                    </div>
+                    <%}%>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                            <h5 class="display-4 text-white">
+                                <%= "Dr " + doctor.fname + " " +doctor.lname %>
+                    </h5>
+                    <%
+                            var i=0,sum=0;
+                            doctor.appointments.forEach(function(appointment){
+                                if(appointment.status=="CNF")
+                                {
+                                    sum+=Number(appointment.billamount);
+                                    i++;
+                                }
+                            })
+                            var acpu=Math.round(sum/i);
+                            acpu = acpu == "NaN"?1000:acpu; %>
+                    <p class="proile-rating" style="font-size: 20px; color: white;">Average Consulting Charges : <span style="font-size: 18px; color: white;">Rs. <%=acpu%></span></p>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                aria-controls="home" aria-selected="true">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                aria-controls="profile" aria-selected="false">Timeline</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <%if(currentuser && doctor._id.equals(currentuser._id)){%>
+            <div class="col-md-2">
+                <a class="profile-edit-btn" name="btnAddMore" href="/profileupdate"> Edit Profile </a>
+            </div>
+            <% } %>
+            <% if((!currentuser)||(currentuser.type=="patient")) {%>
+            <div class="col-md-2">
+                <a class="btn btn-info" href="/doctors/<%= doctor._id %>/bookappointment">Book An Appointment</a>
+            </div>
+            <% } %>
+        </div>
+        <div class="row py-3">
+            <div class="col-md-4">
+                <div class="profile-work">
+                    <iframe src="https://maps.google.com/maps?q=<%=doctor.loc.y%>, <%=doctor.loc.x%>&z=15&output=embed"
+                        frameborder="0" style="border:0"></iframe>
+                </div>
+                <div class="profile-work">
+                    <% doctor.reviews.forEach(function(review){ %>
+                    <p style="font-size: 125%;">
+                        <strong><%= review.author.username %></strong> - <%= review.text %>
+                        <% if(currentuser && review.author.id.equals(currentuser._id)){ %>
+                        <form id="delete-form" action="/doctors/<%=review._id %>/deletereview" method="POST">
+                            <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                        </form>
+                        <% } %>
+                    </p>
+                    <% }) %>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>User Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p><%= doctor.username %></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p><%= "Dr " + doctor.fname + " " +doctor.lname %></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p><%= doctor.email %></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Phone</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p><%= doctor.contactnumber %></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Description</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p><%= doctor.description %></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Day</label>
+                            </div>
+                            <div class="col-md-4">
+                                <p>From</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>To</p>
+                            </div>
+                        </div>
+                        <% doctor.schedule.forEach(function(schedule){ %>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label><%= schedule.day.toUpperCase() %></label>
+                            </div>
+                            <div class="col-md-4">
+                                <p><%= schedule.from + ":00" %></p>
+                            </div>
+                            <div class="col-md-4">
+                                <p><%= schedule.to + ":00" %></p>
+                            </div>
+                        </div>
+                        <% }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include partials/footer %>

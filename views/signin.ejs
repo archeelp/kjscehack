@@ -1,0 +1,134 @@
+<% include partials/header %>
+<script>
+
+$(function () {
+    $('input, select').on('focus', function () {
+        $(this).parent().find('.input-group-text').css('border-color', '#80bdff');
+    });
+    $('input, select').on('blur', function () {
+        $(this).parent().find('.input-group-text').css('border-color', '#ced4da');
+    });
+});
+
+</script>
+
+<style>
+    .border-md {
+        border-width: 2px;
+    }
+
+    .btn-facebook {
+        background: #D30755;
+        border: none;
+    }
+
+    .btn-facebook:hover,
+    .btn-facebook:focus {
+        background: #D30755;
+    }
+
+    .btn-twitter {
+        background: #D30755;
+        border: none;
+    }
+
+    .btn-twitter:hover,
+    .btn-twitter:focus {
+        background: #D30755;
+    }
+
+    body {
+        min-height: 100vh;
+    }
+
+    /* .form-control:not(select) {
+        padding: 1.5rem 0.5rem;
+    } */
+
+    select.form-control {
+        height: 52px;
+        padding-left: 0.5rem;
+    }
+
+    .form-control::placeholder {
+        color: #ccc;
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+    }
+</style>
+<div class="section lb">
+    <div class="container">
+        <br><br>
+        <div class="row py-5 mt-4 align-items-center">
+            <!-- For Demo Purpose -->
+            <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
+                <img src = "https://res.cloudinary.com/darshb/image/upload/v1616236755/undraw_authentication_fsn5_gbupya.svg" alt="" class="img-fluid mb-3 d-none d-md-block">
+                <div class="row justify-content-center">
+                    <h1>Sign In</h1>
+                    <div class="col-12">
+                        <p class="font-italic text-muted text-center mb-0">We're glad to have you back!</p>    
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Registeration Form -->
+            <div class="col-md-7 col-lg-6 ml-auto">
+                <form id="signin" method="POST" action="/signin">
+                    <div class="row">
+    
+                        <!-- User Name -->
+                        <div class="input-group col-lg-6 mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                    <i class="fa fa-user text-muted"></i>
+                                </span>
+                            </div>
+                            <input id="firstName" type="text" name="username" placeholder="User Name" class="form-control bg-white border-left-0 border-md">
+                        </div>
+    
+    
+                        <!-- Password -->
+                        <div class="input-group col-lg-6 mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                    <i class="fa fa-lock text-muted"></i>
+                                </span>
+                            </div>
+                            <input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md">
+                        </div>
+    
+                    <!-- Submit Button -->
+                    <div class="form-group col-lg-12 mx-auto mb-0">
+                        <button class="btn btn-danger btn-block py-2" id="register" name="submitButton">
+                            <span class="font-weight-bold">Login</span>
+                        </button>
+                    </div>
+                        
+    
+                        <!-- Divider Text -->
+                        <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
+                            <div class="border-bottom w-100 ml-5"></div>
+                            <span class="px-2 small text-muted font-weight-bold text-muted">OR</span>
+                            <div class="border-bottom w-100 mr-5"></div>
+                        </div>
+                        
+                        <!-- Already Registered -->
+                        <div class="text-center w-100">
+                            <p class="text-muted font-weight-bold">Want to enjoy the features? 
+                                <a href="/signup"class="text-danger ml-2">Create an Account</a>
+                            </p>
+                        </div>
+    
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<% include partials/footer %>

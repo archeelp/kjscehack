@@ -1,0 +1,42 @@
+<% include partials/header %>
+<style>
+    .appointment {
+        border: 1px solid rgb(255, 255, 255);
+        margin-bottom: 1%;
+        text-align: center;
+        padding-bottom: 0.5%;
+        padding-top: 0.5%;
+        padding-left: 0.5%;
+    }
+    .size {
+        font-size: 150%;
+    }
+
+    body{
+        color: white
+    }
+</style>
+        <div class="section lb">
+            <% patient.appointments.forEach(function(appointment){
+            var a=appointment.doctorid;
+            var b=currentuser._id;
+            if(a.toString()==b.toString()) {
+                if(appointment.status == "CNF"){
+                var d = appointment.appointmentdate;
+                var month=d.getMonth()+1;%>
+            <div class="container">
+                <div class="appointment">
+                    <p style="text-align: left; font-size: 100%;">Appointment Date
+                        :<%= d.getDate() + "/" + month + "/" + d.getFullYear()%></p>
+                    <br>
+                    <p class="size">Appointment Description : <%= appointment.description%></p>
+                    <br>
+                    <p class="size">Appointment Prescription : <%= appointment.prescription%></p>
+                    <a href="/doctorhome/<%= appointment._id%>" class="btn btn-success">Appointment Details</a>
+                </div>
+            </div>
+            <% }}}); %>
+        </div>
+   
+
+<% include partials/footer %>

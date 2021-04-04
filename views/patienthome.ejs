@@ -1,0 +1,49 @@
+<% include partials/header %>
+
+<style>
+    fieldset {
+        padding-left: 1%;
+        padding-right: 1%;
+    }
+    .card{
+        border-radius: 20px;
+    }
+
+    .card:hover{
+    border-radius: 20px;
+    box-shadow: 10px 10px 7px #D30755;
+    transition: all 200ms ease-out;
+    }
+
+</style>
+<div class="section lb">
+    <div class="container">
+        <br>
+        <div class="ap-table">
+            <div class="row text-center justify-content-center">
+
+                <% patient.appointments.reverse();var srno=1; %>
+                <% patient.appointments.forEach(function(appointment){ %>
+                
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                                <div class="card-body">
+                                  <%  if (appointment.appointmentdate){ %>
+                                    <% var month = appointment.appointmentdate.getMonth() +1; %>
+                                    <h2 class="card-title"><%= appointment.appointmentdate.getDate() + "/" + month + "/" + appointment.appointmentdate.getFullYear() %></h2>
+                                    <p class="card-text" style="font-size: 26px;"><%= appointment.doctorcn %></p>
+                                    <p class="card-text" style="font-size: 40px; font-weight: 900;">Dr. <%= appointment.doctorname.toUpperCase() %></p>
+                                    <p class="card-text"><small class="text-muted"><a href="/patienthome/<%= appointment._id %>" class="btn btn-danger">View Details</a></small></p>
+                                    <% } %></div>
+                          </div>
+                    </div>
+    
+                    
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include partials/footer %>
+

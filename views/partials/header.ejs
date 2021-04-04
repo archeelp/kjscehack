@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">   
+   
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+ 
+     <!-- Site Metas -->
+     <style>
+       .navbar-nav
+       {
+         font-size: 20px;
+         text-transform: none;
+       }
+
+       .nav-link{
+         font-weight: 700;
+         text-transform: none;
+         color: #d30755 !important;
+         margin-left: 20px;
+         margin-right: 20px;
+       }
+
+       .nav-link:hover{
+         text-decoration: underline !important;
+       }
+       
+       .nav-item{
+         margin: 10px auto;
+       }
+       </style>
+    <title>We-Care</title>  
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="/css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/custom.css">
+	  <script src="/js/modernizr.js"></script> <!-- Modernizr -->
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body id="page-top" class="politics_version">
+
+    <!-- LOADER -->
+    <div id="preloader">
+        <div id="main-ld">
+			<div id="loader"></div>  
+		</div>
+    </div><!-- end loader -->
+    <!-- END LOADER -->
+	
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container-fluid">
+        <a class="navbar-brand js-scroll-trigger px-5" style="color:#d30755;text-align:center;font-size: 40px; font-weight: 900;" href="/">
+          We-Care
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav text-uppercase ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/posematch" style="color:#d30755;">PoseMatch</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/doctors" style="color:#d30755; text-transform: none;">Find Doctors</a>
+            </li>
+            <% if(!currentuser){ %>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="/signin" style="color:#d30755;">Sign-In</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="/signup" style="color:#d30755;">Sign-up</a>
+              </li>
+              <% } else { 
+                  if(currentuser.type == "doctor"){ %>
+                    <li class="nav-item dropdown" >
+                      <a class="nav-link dropdown-toggle link-navbar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Dr <%= currentuser.fname %>
+
+                          </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <% if(!currentuser.description){ %>
+                            <a class="nav-link js-scroll-trigger" href="/details/<%= currentuser._id %>" style="color:#d30755;">Add Details</a>
+                        <% } %>
+                          <a class="nav-link js-scroll-trigger" href="/aplist" style="color:#d30755;">Appointments</a>
+                          <a class="nav-link js-scroll-trigger" href="/stats" style="color:#d30755;">Stats</a>
+                          <a class="nav-link js-scroll-trigger" href="/logout" style="color:#d30755;">Logout</a>
+                       </div>
+        
+                    </li>
+                  <% } 
+                  if(currentuser.type == "patient"){ %>
+                    <li class="nav-item">
+                      <a class="nav-link js-scroll-trigger" href="/patienthome" style="color:#d30755;">My Appointments</a>
+                    </li>
+                    <li class="nav-item dropdown" >
+                      <a class="nav-link dropdown-toggle link-navbar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <%= currentuser.fname %>
+
+                          </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="nav-link js-scroll-trigger" href="/logout" style="color:#d30755;">Logout</a>
+                      </div>
+        
+                    </li>                    
+                  <% } 
+                  if(currentuser.type == "admin"){ %>
+                    <li class="nav-item">
+                      <a class="nav-link js-scroll-trigger" href="/admin" style="color:#d30755;">Feedbacks</a>
+                    </li>
+                    <li class="nav-item dropdown" >
+                      <a class="nav-link dropdown-toggle link-navbar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Admin
+
+                          </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="nav-link js-scroll-trigger" href="/logout" style="color:#d30755;">Logout</a>
+                      </div>    
+                    </li>                    
+                  <% } %>
+              <% } %>
+          </ul>
+        </div>
+      </div>
+    </nav>

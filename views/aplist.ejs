@@ -1,0 +1,74 @@
+<% include partials/header %>
+<link href="https://fonts.googleapis.com/css?family=Voces&display=swap" rel="stylesheet">
+<style>
+    h1 {
+        font-family: 'Voces', cursive;
+    }
+    #btn {
+        font-size: 120;
+    }
+
+    .card{
+        border-radius: 20px;
+    }
+
+    .card:hover{
+    border-radius: 20px;
+    box-shadow: 10px 10px 7px #D30755;
+    transition: all 200ms ease-out;
+    }
+</style>
+<div class="section lb">
+    <div class="container pt-5">
+        <div class="ap-table">
+            <div class="row text-center justify-content-center">
+                <%
+    days =["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
+    for(i=7;;i--)
+    {
+        var d = new Date();
+        d.setTime(Date.now()+i*24*60*60*1000);
+        if(d>=currentuser.signupdate-24*60*60*1000)
+        {
+        var month=d.getMonth()+1;
+        currentuser.schedule.forEach(function(schedule){ 
+        if(schedule.day == days[d.getDay()])
+        { %>
+                <div class="col-md-4">
+                    <div class="card mb-3">
+                            <div class="card-body">
+                                <% var x = d.getDate() + "/" + month + "/" + d.getFullYear() %>
+                              <h2 class="card-title"><%= x %></h2>
+                              <p class="card-text" style="font-size: 26px;"><%= schedule.day.toUpperCase() %></p>
+                              <p class="card-text" style="font-size: 40px; font-weight: 900;"><%= schedule.from + ":00" %> - <%= schedule.to + ":00" %></p>
+                                <% if(!counts[x]) {%> 
+                                <p class="card-text text-info " style="font-size: 26px; font-weight: 600;">Appointments : 0</p>
+                                <% } %>
+                                <% if(counts[x] <= 2 ) { %>
+                                <p class="card-text text-info" style="font-size: 26px; font-weight: 600;">Appointments : <%= !counts[x]?0:counts[x] %></p>
+                                <% } %>
+                                <% if(counts[x] >2 && counts[x] <= 5) { %> 
+                                    <p class="card-text text-danger" style="font-size: 26px; font-weight: 600; color: red;">Appointments : <%= !counts[x]?0:counts[x] %></p>
+                                <% } %> 
+                                <% if(counts[x] > 5) { %>                                        
+                                    <p class="card-text text-success" style="font-size: 26px; font-weight: 600; color:green;">Appointments : <%= !counts[x]?0:counts[x] %></p>
+                                <% } %>
+                              <p class="card-text"><small class="text-muted"><a href="/doctorhome/date/<%= d.getTime() %>" class="btn btn-danger">View Details</a></small></p>
+                            </div>
+                      </div>
+                </div>
+
+                <% }
+            })
+        }
+        else break;
+        }
+                %>
+            </div>
+        </div>
+
+        <br>
+    </div>
+</div>
+
+<% include partials/footer %>
