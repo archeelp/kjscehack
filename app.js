@@ -231,11 +231,11 @@ app.use(function (req, res, next) {
 });
 
 app.get("/", async function (req, res) {
-// 	let response = await fetch("https://newsapi.org/v2/everything?q=COVID&from=2021-04-01&sortBy=publishedAt&apiKey=920ce28a536e42328e05cd802508cca6&pageSize=30&page=2&language=en");
-// 	response = await response.json();
-// 	console.log(response)
+	let response = await fetch("https://newsapi.org/v2/everything?q=COVID&from=2021-06-01&sortBy=publishedAt&apiKey=920ce28a536e42328e05cd802508cca6&pageSize=30&page=2&language=en");
+	response = await response.json();
+	console.log(response)
 	res.render("homepage", {
-		response: [] //response.articles
+		response: response.articles
 	});
 });
 
